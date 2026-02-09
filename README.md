@@ -1,61 +1,280 @@
-# Shopping Cart App
+# Shopping Cart Application
 
-## Setup
+A full-stack e-commerce shopping cart application built with React, TypeScript, and MongoDB. This application allows users to browse products, manage inventory, add items to cart, and complete purchases.
 
-1. Install [Node.js](https://nodejs.org/en/download/package-manager/) if you haven't already
-2. Clone this repository
-3. `cd` into the downloaded directory
-4. `cd` into server and run `npm install` from the command line to install all dependencies
+## 🚀 Features
 
-## DataBase Setup
+- **Product Management**
+  - View all available products
+  - Add new products to inventory
+  - Edit existing products (title, price, quantity)
+  - Delete products from inventory
+  - Sort products by title, price, or quantity
 
-1. Create mongoDB account - https://account.mongodb.com/account/register
-2. Create a free AWS cluster
-3. Go to `collections` (Browse Collections) and create a new database (shopping_cart) for example with two collections `products` and `cartitems`. Note: If you are going to work in pairs create two databases (for example team1_shopping and team2_shopping) and each database should have two collections `products` and `cartitems`.
-4. Under Security tab, click Database Access, and on the right `add new database user`. After you enter username and password, click `add user` at the bottom right corner.
-5. Under Security tab, click Network Access, and whitelist your IP address.
-6. Once your cluster is created, under Clusters tab, click connect and then MongoDB for VSCode and copy the connection string which will look something like this `mongodb+srv://test123:<password>@cluster0-zamyu.mongodb.net/`. Instead of `test123` there will be your username, and you will need to replace `<password>` with your password and `test` with the database name. You will have to put the name of your database after the connection string with some flags `mongodb+srv://test123:<password>@cluster0-zamyu.mongodb.net/<databaseName>?retryWrites=true&w=majority`. Change `<databaseName>` with the name of your database.
-7. Finally, inside your project folder, `cd` into server, create new file `.env` and enter `DB=<paste the string from above here>`. It will look similar to this `DB=mongodb+srv://test123:mypass@cluster0-zamyu.mongodb.net/shopping_cart?retryWrites=true&w=majority`.
+- **Shopping Cart**
+  - Add items to cart
+  - View cart with item details and total price
+  - Checkout functionality
+  - Real-time inventory updates
 
-## Viewing Static Version of the App
+- **UI/UX**
+  - Dark/Light theme toggle
+  - Currency conversion toggle
+  - Responsive design
+  - Form validation with Zod
 
-While developing the app, you can take a look at the static pages that you'll eventually convert into a dynamic application. To do so, visit `http://localhost:5001/ui` in the browser. You are also encouraged to read and reuse the markup, classes and ids used in these static files in your components. They're located in the `/server/public/ui` folder.
+## 🛠️ Tech Stack
 
-## Developing the app
+### Frontend
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Axios** - HTTP client
+- **Zod** - Schema validation
+- **Vitest** - Unit testing
+- **React Testing Library** - Component testing
 
-The starting point of the application is the `/client/src/index.js` file. That's where the root component of the application - `App` - is rendered to the DOM. You can add new components to the `/client/src/components` folder and new test files to the `/client/src/tests` folder.
+### Backend
+- **Node.js** - Runtime environment
+- **Express** - Web framework
+- **MongoDB** - Database
+- **Mongoose** - ODM for MongoDB
+- **dotenv** - Environment variable management
 
-For the initial application data, you can start with the following list of products:
+## 📋 Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [MongoDB Atlas Account](https://account.mongodb.com/account/register) or local MongoDB installation
+- npm or yarn package manager
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd shopping_cart
+```
+
+### 2. Database Setup
+
+1. Create a [MongoDB Atlas](https://account.mongodb.com/account/register) account (free tier available)
+2. Create a new cluster (AWS free tier recommended)
+3. Create a database named `shopping_cart` with two collections:
+   - `products`
+   - `cartitems`
+4. **Set up Database Access:**
+   - Go to Security → Database Access
+   - Click "Add New Database User"
+   - Create username and password
+   - Click "Add User"
+5. **Configure Network Access:**
+   - Go to Security → Network Access
+   - Click "Add IP Address"
+   - Whitelist your IP address (or use 0.0.0.0/0 for development)
+6. **Get Connection String:**
+   - Go to Clusters → Connect
+   - Choose "Connect your application"
+   - Copy the connection string (looks like: `mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/`)
+   - Replace `<username>`, `<password>`, and add your database name
+
+### 3. Server Setup
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file in the server directory:
+
+```env
+DB=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/shopping_cart?retryWrites=true&w=majority
+PORT=5001
+```
+
+### 4. Client Setup
+
+```bash
+cd client
+npm install
+```
+
+## 🚀 Running the Application
+
+### Start the Server
+
+```bash
+cd server
+npm start
+# Or for development with auto-reload:
+npm run start-watch
+```
+
+The server will run on `http://localhost:5001`
+
+### Start the Client
+
+```bash
+cd client
+npm run dev
+```
+
+The client will run on `http://localhost:5173` (default Vite port)
+
+### View Static UI (Optional)
+
+During development, you can view static HTML pages at:
+```
+http://localhost:5001/ui
+```
+
+## 🧪 Testing
+
+Run tests for the React application:
+
+```bash
+cd client
+npm test              # Run tests once
+npm run test:watch    # Run tests in watch mode
+```
+
+## 📁 Project Structure
+
+```
+shopping_cart/
+├── client/                  # React frontend application
+│   ├── src/
+│   │   ├── components/     # React components (Cart, Product, Forms, etc.)
+│   │   ├── types/          # TypeScript type definitions
+│   │   ├── services/       # API service functions (products, cart, exchange rates)
+│   │   ├── reducers/       # State management reducers
+│   │   ├── providers/      # Context providers (Theme, Currency)
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── helpers/        # Utility functions
+│   │   ├── lib/            # Third-party library configurations
+│   │   ├── assets/         # Static assets
+│   │   ├── App.tsx         # Main application component
+│   │   └── main.tsx        # Application entry point
+│   ├── package.json
+│   ├── vite.config.ts      # Vite configuration
+│   └── tsconfig.json       # TypeScript configuration
+│
+├── server/                  # Node.js backend
+│   ├── models/             # Mongoose models (Product, CartItem)
+│   ├── routes/             # Express routes (API, UI)
+│   ├── public/             # Static files
+│   ├── index.js            # Server entry point
+│   ├── package.json
+│   └── .env                # Environment variables (not in git)
+│
+├── docs/
+│   └── api.md              # API documentation
+│
+└── README.md
+```
+
+## 📚 API Documentation
+
+Complete API documentation is available in [`docs/api.md`](docs/api.md)
+
+### Quick API Reference
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | Get all products |
+| POST | `/api/products` | Create a new product |
+| PUT | `/api/products/:id` | Update a product |
+| DELETE | `/api/products/:id` | Delete a product |
+| GET | `/api/cart` | Get cart items |
+| POST | `/api/add-to-cart` | Add item to cart |
+| POST | `/api/checkout` | Checkout and clear cart |
+
+## 🎨 Component Overview
+
+### Main Components
+
+- **App**: Root component managing global state and data fetching
+- **ProductListing**: Displays all products with sorting functionality
+- **Product/EditableProduct**: Individual product display with edit capabilities
+- **Cart**: Shopping cart display with checkout button
+- **ProductForm**: Reusable form for adding/editing products
+- **ThemeToggle**: Dark/light mode switcher
+- **CurrencyToggle**: Currency conversion toggle
+
+### State Management
+
+The application uses React's `useReducer` hook for state management:
+- **productsReducer**: Manages product list and sorting
+- **cartReducer**: Manages shopping cart items
+
+## 🔧 Development
+
+### Available Scripts
+
+**Client:**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
+
+**Server:**
+- `npm start` - Start server
+- `npm run start-watch` - Start server with nodemon (auto-reload)
+
+## 🌟 Sample Data
+
+To get started, you can use this sample product data:
 
 ```js
 [
   {
-    id: 1,
     title: "Amazon Kindle E-reader",
     quantity: 5,
     price: 79.99,
   },
   {
-    id: 2,
     title: "Apple 10.5-Inch iPad Pro",
     quantity: 3,
     price: 649.99,
   },
   {
-    id: 3,
     title: "Yamaha Portable Keyboard",
     quantity: 2,
     price: 155.99,
   },
   {
-    id: 4,
     title: "Tinker, Tailor, Soldier, Spy - A John le Carre Novel",
     quantity: 12,
     price: 13.74,
   },
-];
+]
 ```
 
-## DOCS
+## 🔐 Security Notes
 
-You can find documentation in the `docs` folder in `api.md` file.
+- Never commit `.env` files to version control
+- The `.env` file is already in `.gitignore`
+- Use environment variables for sensitive data
+- In production, use proper authentication and authorization
+- Restrict CORS origins in production
+
+## 📝 License
+
+This project is part of a capstone project.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📞 Support
+
+For issues or questions, please open an issue in the repository.
+
+---
+
+Built with ❤️ using React, TypeScript, and MongoDB
