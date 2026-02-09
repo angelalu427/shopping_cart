@@ -1,4 +1,4 @@
-@import url("./whitespace-reset.css");
+@import "./whitespace-reset.css";
 @import url("https://fonts.googleapis.com/css?family=Rammetto+One%7CRoboto+Condensed");
 
 body {
@@ -199,4 +199,108 @@ th {
 table td.total {
   text-align: right;
   padding-top: 20px;
+}
+
+/* === Sort bar layout next to "Products" === */
+.product-listing .listing-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* pushes sort bar to the right end */
+  gap: 1rem;
+  margin-bottom: 10px;            /* matches your h2 spacing */
+}
+
+.product-listing .listing-header .listing-title {
+  margin: 0;                      /* override global h2 margin */
+  font-size: 22px;                /* keep your heading size */
+  line-height: 1.2;
+}
+
+/* Sort bar look & feel */
+.sort-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;            /* keep on one line */
+  font-size: 0.9rem;
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 9999px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+}
+
+.sort-btn:hover { border-color: #bbb; background: #fafafa; }
+.sort-btn.active { border-color: #666; font-weight: 600; }
+.sort-btn:focus-visible { outline: 2px solid #2684ff; outline-offset: 2px; }
+.sort-btn .arrow { min-width: 0.8em; text-align: center; }
+
+#app.theme-dark main {
+  background: #0f1820;     /* darker main background */
+  color: #e8eef2;          /* main text color */
+}
+
+/* keep header if you like, or change it too */
+#app.theme-dark header {
+  background: #0b3a40;
+  color: #e8eef2;
+}
+
+/* product card background only */
+#app.theme-dark .product {
+  background: #354551;
+  /* if you want borders darker */
+  /* border: 1px solid #2a3a45; */
+}
+
+/* buttons */
+#app.theme-dark button {
+  background: #5297cf;
+  color: #e8eef2;
+}
+
+#app.theme-dark button:disabled {
+  background: #252d32;
+  color: #8ca3af;
+}
+
+/* "Checkout" button colors (you currently invert them) */
+#app.theme-dark .checkout {
+  background: #0f1820;
+  color: #e8eef2;
+}
+
+/* IMPORTANT: keep price red (overrides dark text) */
+#app.theme-dark .product .price {
+  color: #e6a8c3;
+}
+
+#app.theme-dark .product .delete-button {
+  background: red;   /* or a11y-friendly red like #ff4d4f */
+  color: #fff;
+  border-color: transparent; /* just in case */
+}
+
+/* If you want other text inside cards to be light too */
+#app.theme-dark .product {
+  color: #e8eef2;
+}
+
+.toggle-btn {
+  background: #22896d; color: white; border: 1px solid #ddd;
+  border-radius: 9999px; padding: 4px 10px; cursor: pointer;
+  margin-left: 10px;
+}
+
+#app.theme-dark .toggle-btn {
+  background: #16222b; color: #e8eef2; border-color: #2a3a45;
 }
